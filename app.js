@@ -42,9 +42,7 @@ app.post('/compose', (req, res) => {
     title: req.body.postTitle,
     content: req.body.postBody,
   };
-
   posts.push(post);
-
   res.redirect('/');
 });
 
@@ -53,7 +51,10 @@ app.get('/posts/:postName', (req, res) => {
   posts.forEach((post) => {
     const storedTitle = _.lowerCase(post.title);
     if (storedTitle === requestedTitle) {
-      console.log('match');
+      res.render('post', {
+        postTitle: post.title,
+        postBody: post.content,
+      });
     }
   });
 });
